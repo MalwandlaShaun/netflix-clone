@@ -1,0 +1,151 @@
+.banner {
+  position: relative;
+  height: 448px;
+  color: white;
+  object-fit: contain;
+}
+
+.banner__contents {
+  margin-left: 30px;
+  padding: 140px;
+  height: 190px;
+}
+
+.banner__title {
+  font-size: 3rem;
+  font-weight: 800;
+  padding-bottom: 0.3rem;
+}
+
+.banner__description {
+  width: 45rem;
+  line-height: 1.3;
+  padding-top: 1rem;
+  font-size: 0.8rem;
+  max-width: 360px;
+  height: 80px;
+}
+
+.banner--fadeBottom {
+  height: 7.4rem;
+  background-image: linear-gradient(
+    180deg,
+    transparent,
+    rgba(37, 37, 37, 0.61),
+    #111
+  );
+}
+
+.banner__button {
+  cursor: pointer;
+  color: #fff;
+  outline: none;
+  border: none;
+  font-weight: 700;
+  border-radius: 0.2vw;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-right: 1rem;
+  padding-top: 0.5rem;
+  background-color: rgba(51, 51, 51, 0.5);
+  padding-bottom: 0.5rem;
+}
+
+.banner__button:hover {
+  color: black;
+  background-color: #e6e6e6;
+  transition: all 0.2s;
+}
+
+.banner {
+  background-size: cover;
+  width: 100%;
+  color: white;
+  display: flex;
+  position: relative;
+  height: 448px;
+  object-fit: contain;
+}
+
+.content {
+  padding-top: 10rem;
+  height: 190px;
+  padding-left: 15px;
+  padding-right: 10px;
+  overflow: hidden;
+  padding-bottom: 2em;
+  margin-left: 30px;
+  padding: 140px;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  padding-bottom: 0.3rem;
+}
+
+.button {
+  color: white;
+  outline: none;
+  border: none;
+  font-weight: 700;
+  border-radius: 5px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: rgba(51, 51, 51, 0.5);
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.button:hover {
+  color: black;
+  background-color: #e6e6e6;
+}
+
+.description {
+  width: 45rem;
+  line-height: 1.3;
+  padding-top: 1rem;
+  font-size: 0.8rem;
+  max-width: 360px;
+  height: 80px;
+
+  /* max-width: 360px; */
+}
+
+.fade_bottom:hover {
+  height: 7.4rem;
+  background-image: linear-gradient(
+    180deg,
+    transparent,
+    rgba(37, 37, 37, 0.61),
+    #111
+  );
+}
+
+@media (max-width: 1000px) {
+  .banner {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 100%;
+  }
+  .title {
+    font-size: 2rem;
+    font-weight: 800;
+    padding-bottom: 0.3rem;
+  }
+  .description {
+    line-height: 1.3;
+    padding-top: 1rem;
+    font-size: 0.9rem;
+    height: 130px;
+    overflow: scroll;
+
+    /* max-width: 360px; */
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
