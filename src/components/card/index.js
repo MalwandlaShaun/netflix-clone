@@ -67,7 +67,7 @@ Card.Item = function CardItem({ item, children, ...restProps }) {
       {...restProps}
     >
       {children}
-    </Item>
+    </Item> 
   );
 };
 
