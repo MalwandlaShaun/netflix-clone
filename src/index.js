@@ -1,17 +1,17 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom/client'; // ✅ Import from 'react-dom/client'
 import 'normalize.css';
 import { GlobalStyles } from './global-styles';
 import { App } from './app';
-import { firebase } from './lib/firebase.prod';
+import { app, auth, db } from './lib/firebase.prod';
 import { FirebaseContext } from './context/firebase';
 
-render(
+const root = ReactDOM.createRoot(document.getElementById('root')); // ✅ Use createRoot
+root.render(
   <React.StrictMode>
-    <FirebaseContext.Provider value={{ firebase }}>
+    <FirebaseContext.Provider value={{ firebase: { auth, app, db } }}>
       <GlobalStyles />
       <App />
     </FirebaseContext.Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );

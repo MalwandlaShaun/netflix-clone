@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // ✅ Updated import
 import { FirebaseContext } from '../context/firebase';
 import { Form } from '../components';
 import { HeaderContainer } from '../containers/header';
@@ -7,7 +7,7 @@ import { FooterContainer } from '../containers/footer';
 import * as ROUTES from '../constants/routes';
 
 export default function SignUp() {
-  const history = useHistory();
+  const navigate = useNavigate(); // ✅ Replacing useHistory with useNavigate
   const { firebase } = useContext(FirebaseContext);
 
   const [firstName, setFirstName] = useState('');
@@ -30,7 +30,7 @@ export default function SignUp() {
             photoURL: Math.floor(Math.random() * 5) + 1,
           })
           .then(() => {
-            history.push(ROUTES.BROWSE);
+            navigate(ROUTES.BROWSE); // ✅ Updated from history.push
           })
       )
       .catch((error) => {

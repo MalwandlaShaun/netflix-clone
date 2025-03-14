@@ -6,6 +6,11 @@ export default function useAuthListener() {
   const { firebase } = useContext(FirebaseContext);
 
   useEffect(() => {
+    if (!firebase || !firebase.auth) {
+      console.error('Firebase or auth is undefined');
+      return;
+    }
+
     const listener = firebase.auth().onAuthStateChanged((authUser) => {
       if (authUser) {
         localStorage.setItem('authUser', JSON.stringify(authUser));
@@ -17,7 +22,7 @@ export default function useAuthListener() {
     });
 
     return () => listener();
-  }, []);
+  }, [firebase]);
 
   return { user };
 }
