@@ -1,13 +1,17 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ Updated import
+import React, { useState, useContext, useEffect } from 'react';
+import { Redirect } from '@reach/router';
 import { FirebaseContext } from '../context/firebase';
 import { Form } from '../components';
 import { HeaderContainer } from '../containers/header';
 import { FooterContainer } from '../containers/footer';
 import * as ROUTES from '../constants/routes';
+import {auth} from '../lib/firebase.prod'
+
+// Import Firebase modular SDK functions
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 export default function SignIn() {
-  const navigate = useNavigate(); // ✅ Replacing useHistory with useNavigate
+  // const navigate = useNavigate();
   const { firebase } = useContext(FirebaseContext);
 
   const [emailAddress, setEmailAddress] = useState('');
@@ -16,20 +20,31 @@ export default function SignIn() {
 
   const isInvalid = password === '' || emailAddress === '';
 
-  const handleSignin = (event) => {
+  // useEffect(() => {
+  //   console.log("hit useEffect");
+  //   if (auth.currentUser) {
+  //     console.log(auth.currentUser);
+  //     console.log("hit auth for navigation");
+  //     navigate(-1);
+  //   }
+  // }, [auth.currentUser]);
+
+  const handleSignin = async (event) => {
     event.preventDefault();
 
-    return firebase
-      .auth()
-      .signInWithEmailAndPassword(emailAddress, password)
-      .then(() => {
-        navigate(ROUTES.BROWSE); // ✅ Updated from history.push
-      })
-      .catch((error) => {
-        setEmailAddress('');
-        setPassword('');
-        setError(error.message);
-      });
+    try {
+      /*console.log("getAuth :", getAuth);
+      console.log("Auth :", auth);*/
+      await signInWithEmailAndPassword(auth, emailAddress, password);
+      if (auth.currentUser) {
+        console.log("hit navigate");
+        return <Redirect to={ROUTES.BROWSE} />;
+      }
+    } catch (error) {
+      setEmailAddress("");
+      setPassword("");
+      setError(error.message);
+    }
   };
 
   return (

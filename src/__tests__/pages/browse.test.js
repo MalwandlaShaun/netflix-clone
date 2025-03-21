@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from '@reach/router';
 import { Browse } from '../../pages';
 import { FirebaseContext } from '../../context/firebase';
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+jest.mock('@reach/router', () => ({
+  ...jest.requireActual('@reach/router'),
   useHistory: () => ({}),
 }));
 

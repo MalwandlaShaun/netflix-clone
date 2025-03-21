@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { SelectProfileContainer } from '../../containers/profiles';
 
-jest.mock('react-router-dom');
+jest.mock('@reach/router');
 
 describe('<Profiles />', () => {
   it('renders the <Profiles />', () => {

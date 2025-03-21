@@ -1,9 +1,9 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom'; // Import Navigate for redirects
+import { Redirect } from '@reach/router'; // Use Redirect from Reach Router
 
 export function IsUserRedirect({ user, loggedInPath, children }) {
   if (user) {
-    return <Navigate to={loggedInPath} />;
+    return <Redirect to={loggedInPath} />;
   }
 
   return children;
@@ -11,7 +11,7 @@ export function IsUserRedirect({ user, loggedInPath, children }) {
 
 export function ProtectedRoute({ user, children }) {
   if (!user) {
-    return <Navigate to="/signin" replace />;
+    return <Redirect to="/signin" />;
   }
 
   return children;

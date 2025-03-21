@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link as ReachRouterLink } from 'react-router-dom';
+import { Link as ReachRouterLink } from '@reach/router';
 
 export const Background = styled.div`
   display: flex;

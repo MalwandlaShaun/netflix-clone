@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link as ReachRouterLink } from 'react-router-dom';
+import { Link as ReachRouterLink } from '@reach/router';
 
 export const Container = styled.div`
   display: flex;

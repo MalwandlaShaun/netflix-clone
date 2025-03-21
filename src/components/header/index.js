@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link as ReachRouterLink } from 'react-router-dom';
+import { Link as ReachRouterLink } from '@reach/router';
 import {
   Container,
   Group,

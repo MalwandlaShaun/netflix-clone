@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Routes instead of Switch
+import { Router, Link } from '@reach/router'; // Import Reach Router
 import { Home, Browse, SignIn, SignUp } from './pages';
 import * as ROUTES from './constants/routes';
 import { IsUserRedirect, ProtectedRoute } from './helpers/routes';
@@ -9,44 +9,42 @@ export function App() {
   const { user } = useAuthListener();
 
   return (
-    <Router>
-      <Routes>
-        {' '}
-        {/* Replace Switch with Routes */}
-        <Route
+    <div>
+      {/* Replace Navigation links with Reach Router Links */}
+      <nav>
+        <Link to={ROUTES.HOME}>Home</Link>
+        <Link to={ROUTES.SIGN_IN}>Sign In</Link>
+        <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+        <Link to={ROUTES.BROWSE}>Browse</Link>
+      </nav>
+
+      <Router>
+        {/* Set up routes using Reach Router */}
+        <IsUserRedirect
           path={ROUTES.SIGN_IN}
-          element={
-            <IsUserRedirect user={user} loggedInPath={ROUTES.BROWSE}>
-              <SignIn />
-            </IsUserRedirect>
-          }
-        />
-        <Route
+          user={user}
+          loggedInPath={ROUTES.BROWSE}
+        >
+          <SignIn />
+        </IsUserRedirect>
+        <IsUserRedirect
           path={ROUTES.SIGN_UP}
-          element={
-            <IsUserRedirect user={user} loggedInPath={ROUTES.BROWSE}>
-              <SignUp />
-            </IsUserRedirect>
-          }
-        />
-        <Route
-          path={ROUTES.BROWSE}
-          element={
-            <ProtectedRoute user={user}>
-              <Browse />
-            </ProtectedRoute>
-          }
-        />
-        <Route
+          user={user}
+          loggedInPath={ROUTES.BROWSE}
+        >
+          <SignUp />
+        </IsUserRedirect>
+        <ProtectedRoute path={ROUTES.BROWSE} user={user}>
+          <Browse />
+        </ProtectedRoute>
+        <IsUserRedirect
           path={ROUTES.HOME}
-          element={
-            <IsUserRedirect user={user} loggedInPath={ROUTES.BROWSE}>
-              <Home />
-            </IsUserRedirect>
-          }
-        />
-      </Routes>{' '}
-      {/* Closing Routes tag */}
-    </Router>
+          user={user}
+          loggedInPath={ROUTES.BROWSE}
+        >
+          <Home />
+        </IsUserRedirect>
+      </Router>
+    </div>
   );
 }

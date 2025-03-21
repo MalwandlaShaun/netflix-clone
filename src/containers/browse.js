@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Header, Loading } from '../components';
-import * as ROUTES from '../constants/routes';
-import logo from '../logo.svg';
-import { FirebaseContext } from '../context/firebase';
-import { SelectProfileContainer } from './profiles';
-import { FooterContainer } from './footer';
-import RowPost from '../functionality/RowPost/RowPost';
-import Banner from '../functionality/Banner/Banner';
+import React, { useState, useEffect, useContext } from "react";
+import { Header, Loading } from "../components";
+import * as ROUTES from "../constants/routes";
+import logo from "../logo.svg";
+import { FirebaseContext } from "../context/firebase";
+import { SelectProfileContainer } from "./profiles";
+import { FooterContainer } from "./footer";
+import RowPost from "../functionality/RowPost/RowPost";
+import Banner from "../functionality/Banner/Banner";
 import {
   actions,
   comedy,
@@ -16,14 +16,24 @@ import {
   topRated,
   trending,
   documentary,
-} from '../functionality/constants/urls';
+} from "../functionality/constants/urls";
+
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 export function BrowseContainer() {
   const [profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
+  const { auth } = useContext(FirebaseContext); // Using modular auth
+  const [user, setUser] = useState(null);
 
-  const { firebase } = useContext(FirebaseContext);
-  const user = firebase.auth().currentUser || {};
+  useEffect(() => {
+    // Listen for auth state changes
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+
+    return () => unsubscribe(); // Cleanup on unmount
+  }, [auth]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -33,7 +43,7 @@ export function BrowseContainer() {
 
   return profile.displayName ? (
     <>
-      {loading ? <Loading src={user.photoURL} /> : <Loading.ReleaseBody />}
+      {loading ? <Loading src={user?.photoURL} /> : <Loading.ReleaseBody />}
 
       <Header.Frame>
         <Header.Group>
@@ -44,14 +54,14 @@ export function BrowseContainer() {
         <Header.Group>
           <Header.Search />
           <Header.Profile>
-            <Header.Picture src={user.photoURL} />
+            <Header.Picture src={user?.photoURL} />
             <Header.Dropdown>
               <Header.Group>
-                <Header.Picture src={user.photoURL} />
-                <Header.TextLink>{user.displayName}</Header.TextLink>
+                <Header.Picture src={user?.photoURL} />
+                <Header.TextLink>{user?.displayName}</Header.TextLink>
               </Header.Group>
               <Header.Group>
-                <Header.TextLink onClick={() => firebase.auth().signOut()}>
+                <Header.TextLink onClick={() => signOut(auth)}>
                   Sign out
                 </Header.TextLink>
               </Header.Group>
@@ -62,19 +72,12 @@ export function BrowseContainer() {
 
       <Banner />
       <RowPost title="Netflix Originals" api={originals} />
-
       <RowPost title="Trending Now" api={trending} isSmall={true} />
-
       <RowPost title="Top Rated" api={topRated} />
-
       <RowPost title="Action Movies" api={actions} isSmall={true} />
-
       <RowPost title="Romantic Movies" api={romance} isSmall={true} />
-
       <RowPost title="Comedy Movies" api={comedy} isSmall={true} />
-
       <RowPost title="Horror Movies" api={horror} isSmall={true} />
-
       <RowPost title="Documentaries" api={documentary} isSmall={true} />
 
       <FooterContainer />
